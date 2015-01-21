@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
+import java.util.HashMap;
+import java.util.ArrayList;
 
 @RestController
 public class GreetingController {
@@ -20,15 +22,14 @@ public class GreetingController {
     }
 
     @RequestMapping("/info")
-    public Greeting info(@RequestParam(value="name", defaultValue="World") String name) {
-        Map<String, String> env = System.getenv();
-        for (String envName : env.keySet()) {
-            System.out.format("%s=%s%n",
-                    envName,
-                    env.get(envName));
+    public Map<String, String> info(@RequestParam(value="name", defaultValue="World") String name) {
+    	HashMap<String, String> parametros = new HashMap<String, String>();
+    	Map<String, String> env = System.getenv();
+    	for (String envName : env.keySet()) {
+        	parametros.put(envName, env.get(envName));
         }
-        return new Greeting(counter.incrementAndGet(),
-                String.format(template, name));
+    	return parametros;
+        // return System.getenv();
     }
 
     /*
