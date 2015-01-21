@@ -2,6 +2,8 @@ package hello;
 
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Map;
+
 public class Application {
 
     public static void main(String args[]) {
@@ -11,6 +13,11 @@ public class Application {
         System.out.println("About:   " + page.getAbout());
         System.out.println("Phone:   " + page.getPhone());
         System.out.println("Website: " + page.getWebsite());
+        System.out.println("Cover:");
+        Map<String, String> covers = page.getCover();
+        for (String strValue : covers.keySet()) {
+            System.out.format("\t%s: %s %n", strValue, covers.get(strValue));
+        }
     }
 
 }
